@@ -30,7 +30,7 @@ experienceProRoute.post('/newExpPro',async (req,res)=>{
 experienceProRoute.delete('/delExpPro/:id',async (req,res)=>{
     try {
         const {id} = req.params;
-        const delExpPro = experienceProModel.findByIdAndDelete(id)
+        const delExpPro = await experienceProModel.findByIdAndDelete(id)
         if(!delExpPro){
             res.status(400).json({
                 message: `Pas d'expérience professionnels avec l'ID: ${id}`
