@@ -1,7 +1,7 @@
 const express = require('express');
 const { mongoose } = require('mongoose');
 require('dotenv').config()
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 4000;
 const app = express()
 const cors = require('cors')
 
@@ -13,7 +13,7 @@ const expProRouter = require('./routes/experienceProRoute')
 const formationRouter = require('./routes/formationRoute')
 
 app.use(cors())
-mongoose.connect(process.env.DB,{ useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.DB)
 .then(()=>{
     console.log("Connexion DB réussi: ",process.env.DB);
 })
