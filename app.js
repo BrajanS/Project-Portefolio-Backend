@@ -12,7 +12,8 @@ const centreInteretsRouter = require('./routes/centreInteretsRoute')
 const expProRouter = require('./routes/experienceProRoute')
 const formationRouter = require('./routes/formationRoute')
 
-mongoose.connect(process.env.DB)
+app.use(cors())
+mongoose.connect(process.env.DB,{ useNewUrlParser: true, useUnifiedTopology: true })
 .then(()=>{
     console.log("Connexion DB réussi: ",process.env.DB);
 })
@@ -20,7 +21,7 @@ mongoose.connect(process.env.DB)
     console.log(error);
 })
 
-app.listen(443,()=>{
+app.listen(PORT,()=>{
     console.log(`Server open in: http://localhost:${PORT}`);
 })
 app.get('/',(req,res)=>{
@@ -30,7 +31,6 @@ app.get('/message',(req,res)=>{
     res.json({message: "Bonjour, voici votre premiere route"})
 })
 
-app.use(cors())
 app.use(express.json())
 //--------Routes categories--------------------
 app.use('',contactRouter)
