@@ -30,7 +30,7 @@ app.get('/message',(req,res)=>{
     res.json({message: "Bonjour, voici votre premiere route"})
 })
 
-// app.use(cors())
+app.use(cors())
 app.use(express.json())
 //--------Routes categories--------------------
 app.use('',contactRouter)
