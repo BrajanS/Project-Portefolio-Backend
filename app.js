@@ -20,7 +20,7 @@ mongoose.connect(process.env.DB)
     console.log(error);
 })
 
-app.listen(PORT,()=>{
+app.listen(443,()=>{
     console.log(`Server open in: http://localhost:${PORT}`);
 })
 app.get('/',(req,res)=>{
