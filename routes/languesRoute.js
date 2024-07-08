@@ -3,9 +3,18 @@ const langRoute = express.Router()
 const languesSchema = require('../models/languesModel.js')
 
 langRoute.get('/langues',async (req,res)=>{
-    const langues = await languesSchema.find();
-    console.log(langues);
-    res.json(langues);
+    try{
+        const langues = await languesSchema.find();
+        console.log(langues);
+        res.json(langues);
+    } catch (error) {
+        console.log(error.message);
+        if(error){
+            res.status(500).json({
+                message: error.message
+            })
+        }
+    }
 })
 
 langRoute.post('/newLangues',async (req,res)=>{
@@ -23,11 +32,20 @@ langRoute.post('/newLangues',async (req,res)=>{
 })
 
 langRoute.delete('/delLangues/:id',async (req,res)=>{
-    const {id} = req.params
-    await languesSchema.findByIdAndDelete(id)
-    res.json({
-        message: id
-    })
+    try{
+        const {id} = req.params
+        await languesSchema.findByIdAndDelete(id)
+        res.json({
+            message: id
+        })
+    } catch (error) {
+        console.log(error.message);
+        if(error){
+            res.status(500).json({
+                message: error.message
+            })
+        }
+    }
 })
 
 module.exports = langRoute

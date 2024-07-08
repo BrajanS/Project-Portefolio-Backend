@@ -13,6 +13,7 @@ const expProRouter = require('./routes/experienceProRoute')
 const formationRouter = require('./routes/formationRoute')
 
 app.use(cors())
+//-------------Connexion to the Database----------------\\
 mongoose.connect(process.env.DB)
 .then(()=>{
     console.log("Connexion DB réussi: ",process.env.DB);
@@ -20,7 +21,7 @@ mongoose.connect(process.env.DB)
 .catch((error)=>{
     console.log(error);
 })
-
+//-------------------------------------------------------//
 app.listen(PORT,()=>{
     console.log(`Server open in: http://localhost:${PORT}`);
 })
@@ -32,7 +33,7 @@ app.get('/message',(req,res)=>{
 })
 
 app.use(express.json())
-//--------Routes categories--------------------
+//--------Routes categories--------\\
 app.use('',contactRouter)
 app.use('',compRouter)
 app.use('',langRouter)

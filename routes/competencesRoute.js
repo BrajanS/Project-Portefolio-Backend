@@ -3,14 +3,32 @@ const competencesRoute = express.Router()
 const competencesModel = require('../models/competencesModel.js')
 
 competencesRoute.get('/competences',async (req,res)=>{
-    const competences = await competencesModel.find();
-    res.json(competences);
+    try {
+        const competences = await competencesModel.find();
+        res.json(competences);        
+    } catch (error) {
+        console.log(error.message);
+        if(error){
+            res.status(500).json({
+                message: error.message
+            })
+        }
+    }
 })
 
 competencesRoute.post('/newCompetences',async (req,res)=>{
-    const body = await req.body;
-    await competencesModel.create(body)
-    res.json(body)
+    try {
+        const body = await req.body;
+        await competencesModel.create(body)
+        res.json(body)
+    } catch (error) {
+    console.log(error.message);
+    if(error){
+        res.status(500).json({
+            message: error.message
+        })
+    }
+}
 })
 
 competencesRoute.delete('/delCompetences/:id',async (req,res)=>{
