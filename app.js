@@ -4,6 +4,7 @@ require('dotenv').config()
 const PORT = process.env.PORT || 4000;
 const app = express()
 const cors = require('cors')
+const axios = require('axios')
 
 const contactRouter = require('./routes/contactRoute')
 const compRouter = require('./routes/competencesRoute')
@@ -31,6 +32,19 @@ app.get('/',(req,res)=>{
 app.get('/message',(req,res)=>{
     res.json({message: "Bonjour, voici votre premiere route"})
 })
+app.get("/meteo", async (req, res) => {
+    const apiKey = process.env.meteo_api;
+    const ville = req.query.city;
+    const meteoURL = `https://api.openweathermap.org/data/2.5/weather?q=${ville}&units=metric&appid=${apiKey}`;
+  
+    try {
+      const response = await axios.get(meteoURL);
+      const meteo = response.data;
+      res.json({ meteo });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+});
 
 app.use(express.json())
 //--------Routes categories--------\\
